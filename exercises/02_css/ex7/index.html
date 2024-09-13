@@ -14,41 +14,46 @@
     </h1>
     <ul>
         <li>
-            <a href="https://google.com">Google</a>
+            <a href="https://google.com" aria-label="Google">Google</a>
         </li>
         <li>
-            <a href="https://tuni.com">TUNI</a>
+            <a href="https://tuni.com" aria-label="Tampere University">TUNI</a>
         </li>
         <li>
-            <a href="https://plus.tuni.fi/">Plussa</a>
+            <a href="https://plus.tuni.fi/" aria-label="Plussa">Plussa</a>
         </li>
         <li>
-            <a href="https://www.mozilla.org/en-US/">Mozilla</a>
+            <a href="https://www.mozilla.org/en-US/" aria-label="Mozilla">Mozilla</a>
         </li>
         <li>
-            <a href="https://www.google.com/chrome/">Chrome</a>
+            <a href="https://www.google.com/chrome/" aria-label="Google Chrome">Chrome</a>
         </li>
     </ul>
     <hr>
     <h2 id="information">Your information</h2>
     <form>
-        <p>Name:</p>
-        <input id="name" autocomplete="off">
-        <p>homePage:</p>
-        <input id="homePage" autocomplete="off">
-        <p>Email:</p>
-        <input id="email" autocomplete="off">
-        <p>Password:</p>
-        <input id="password" autocomplete="off">
-        <p>Favorite city</p>
-        <select id="favoriteCity" name="select">
+        <label for="name">Name:</label>
+        <input id="name" name="name" autocomplete="off" aria-required="true">
+        
+        <label for="homePage">Home Page:</label>
+        <input id="homePage" name="homePage" autocomplete="off" aria-required="true">
+        
+        <label for="email">Email:</label>
+        <input id="email" name="email" type="email" autocomplete="off" aria-required="true">
+        
+        <label for="password">Password:</label>
+        <input id="password" name="password" type="password" autocomplete="off" aria-required="true">
+        
+        <label for="favoriteCity">Favorite city:</label>
+        <select id="favoriteCity" name="favoriteCity" aria-required="true">
             <option value="1">Amsterdam</option>
             <option value="2">London</option>
             <option value="3">Moscow</option>
             <option value="4">Los Angeles</option>
             <option value="5">New York</option>
         </select>
-        <img src="submit.png" style="display:block; width: 200px; height: 200px;">
+        
+        <button type="submit">Submit</button>
     </form>
 
 </body>
