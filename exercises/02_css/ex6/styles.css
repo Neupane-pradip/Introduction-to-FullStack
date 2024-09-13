@@ -1,0 +1,151 @@
+* {
+  margin: 0;
+  border-collapse: collapse;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  width: 100%;
+  transition: width 3s;
+}
+
+body:hover {
+  width: 10%;
+}
+
+header {
+  display: grid;
+  width: 100%;
+  min-height: 15%;
+  grid-template-columns: 1fr; /* Default to single column layout for small screens */
+  grid-template-rows: auto;
+}
+
+section {
+  min-height: 200px;
+}
+
+aside {
+  min-height: 200px;
+}
+
+article {
+  display: grid;
+  font-size: 1.5em;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Default responsive columns */
+  gap: 1rem; /* Optional gap between items */
+}
+
+footer {
+  display: grid;
+  width: 100%;
+  min-height: 15%;
+  grid-template-columns: repeat(2, 1fr); /* Default two columns layout for navs */
+  grid-template-rows: auto;
+}
+
+nav {
+  background-color: pink;
+  height: 10vh;
+}
+
+header nav {
+  width: 100%;
+}
+
+#sec1 {
+  background-color: lavender;
+}
+
+#aside1 {
+  background-color: cornflowerblue;
+}
+
+#sec2 {
+  background-color: royalblue;
+}
+
+#aside2 {
+  background-color: purple;
+}
+
+#sec3 {
+  background-color: lightgray;
+}
+
+#nav1 {
+  background-color: maroon;
+}
+
+#nav2 {
+  background-color: orangered;
+}
+
+/* Small Phone (< 600px) */
+@media (max-width: 599px) {
+  header, footer {
+    grid-template-columns: 1fr; /* Single column layout */
+  }
+
+  article {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "sec1"
+      "sec2"
+      "sec3"
+      "aside1"
+      "aside2"
+      "nav1"
+      "nav2";
+  }
+}
+
+/* Phone (600px - 767px) */
+@media (min-width: 600px) and (max-width: 767px) {
+  header, footer {
+    grid-template-columns: 1fr 1fr; /* Two columns layout */
+  }
+
+  article {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "sec1 sec2"
+      "sec3 aside1"
+      "aside2 ."
+      "nav1 ."
+      "nav2 .";
+  }
+}
+
+/* Tablet (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  header, footer {
+    grid-template-columns: 1fr 1fr; /* Two columns layout */
+  }
+
+  article {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "sec1 sec2"
+      "sec3 aside1"
+      "aside2 ."
+      "nav1 ."
+      "nav2 .";
+  }
+}
+
+/* Desktop (992px - 1199px) and Wide Desktop (>= 1200px) */
+@media (min-width: 992px) {
+  header, footer {
+    grid-template-columns: 1fr 1fr 1fr; /* Three columns layout */
+  }
+
+  article {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      "sec1 sec2 sec3"
+      "aside1 aside2 ."
+      "nav1 nav2 .";
+  }
+}
