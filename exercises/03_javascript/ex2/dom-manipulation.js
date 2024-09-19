@@ -5,7 +5,26 @@
  * @param {HTMLTableElement} table the table to be sorted
  */
 function sortTableByColumn(col, table) {
-  // TODO: Implement this function as instructed
+  // Get the table body element
+  const tbody = table.querySelector('tbody');
+
+  // Convert the rows NodeList to an array
+  const rowsArray = Array.from(tbody.querySelectorAll('tr'));
+
+  // Sort the array of rows based on the text in the specified column
+  rowsArray.sort((rowA, rowB) => {
+    const cellA = rowA.cells[col].textContent.trim();
+    const cellB = rowB.cells[col].textContent.trim();
+
+    // Use localeCompare to sort the strings
+    return cellA.localeCompare(cellB);
+  });
+
+  // Remove all existing rows from tbody
+  tbody.innerHTML = '';
+
+  // Append the sorted rows back to the table body
+  rowsArray.forEach(row => tbody.appendChild(row));
 }
 
 /**
