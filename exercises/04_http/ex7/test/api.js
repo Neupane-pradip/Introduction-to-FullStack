@@ -52,49 +52,32 @@ describe('Going through the routes', () => {
    * Test the /classical route, should receive homer.html
    */
   describe('GET /classical path', () => {
-    // TODO modify the it statement to use the function that has been 
-    // commented out below.
-    // You also need to uncomment the needed parts.
-    // As the result the status of the test should go from 'pending' to 'passing'
-    // Even thou just leaving the function inside <em>end</em> method will pass,
-    //  you must write the tests as described in the TODO inside the end method.
-    it('it should GET the homer.html')
-      // TODO uncomment the needed parts
-      // BE EXTRA CAREFUL WITH THE PARANTHESES WHEN UNCOMMENTING! SEE THE EXAMPLES ABOVE!
-      // , (done) => {
-      //     chai.request(server)
-      //         .get('/classical')
-      //         .end((err, res) => {
-      //             // TODO: test that 
-      //             // a) the response should have HTTP response status of 200, and
-      //             // b) that the response is in HTML form, and
-      //             // c) that the text of the response is equal to homer.html, so here the response text should be equal to const homer
-      //             done();
-      //         });
-      // });
+    it('it should GET the homer.html', (done) => {
+      chai.request(server)
+        .get('/classical')
+        .end((err, res) => {
+          res.should.have.status(200); // a) Test that response has status 200
+          res.should.be.html;          // b) Test that response is HTML
+          res.text.should.be.eql(homer); // c) Test that response text matches homer.html content
+          done();
+        });
+    });
   });
-
+  
   /*
    * Test the /dystopy route, should receive bradbury.html
    */
   describe('GET /dystopy path', () => {
-    // TODO modify the it statement to use the function that has been 
-    // commented out below.
-    // You also need to uncomment the needed parts.
-    // As the result the status of the test should go from 'pending' to 'passing'
-    // Even thou just leaving the function inside <em>end</em> method will pass,
-    //  you must write the tests as described in the TODO inside the end method.
-    it('it should GET the bradbury.html')
-      // BE EXTRA CAREFUL WITH THE PARANTHESES WHEN UNCOMMENTING! SEE THE EXAMPLES ABOVE!
-      //     , (done) => {
-      //         chai.request(server)
-      //             .get('/dystopy')
-      //             .end((err, res) => {
-      //                 // TODO: test that 
-      //                 // a) the response should have HTTP response status of 200, and       //                 // b) that the response is in HTML form
-      //                 // c) the text of the response is equal to bradbury.html,  so here the response text should be equal to const bradbury
-      //                 done();
-      //             });
-      //     });
+    it('it should GET the bradbury.html', (done) => {
+      chai.request(server)
+        .get('/dystopy')
+        .end((err, res) => {
+          res.should.have.status(200); // a) Test that response has status 200
+          res.should.be.html;          // b) Test that response is HTML
+          res.text.should.be.eql(bradbury); // c) Test that response text matches bradbury.html content
+          done();
+        });
+    });
   });
+  
 });
