@@ -1,0 +1,8 @@
+{
+  "name": "ex5",
+  "devDependencies": {
+    "express": "^4.21.0",
+    "mocha": "^10.7.3",
+    "supertest": "^7.0.0"
+  }
+}

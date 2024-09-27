@@ -1,0 +1,7 @@
+{
+  "name": "ex2",
+  "devDependencies": {
+    "express": "^4.21.0",
+    "mocha": "^10.7.3"
+  }
+}
