@@ -14,8 +14,8 @@ const server = require('../index.js');
 
 // Asynchronous function to set up the tests
 (async () => {
-  // Dynamically import chai-http as an ES Module
-  const { default: chaiHttp } = await import('chai-http');
+  // Dynamically import chai-http as an ES Module with .js extension
+  const { default: chaiHttp } = await import('chai-http/index.js');
 
   // Tell Chai to use the chai-http middleware
   chai.use(chaiHttp);
