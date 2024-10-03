@@ -35,6 +35,7 @@ const server = http.createServer((req, res) => {
     // DO NOT MODIFY BELOW THIS LINE
     const parsedUrl = url.parse(req.url, true);
     if (parsedUrl.pathname === '/set' && parsedUrl.query.key && parsedUrl.query.value) {
+        session[parsedUrl.query.key] = parsedUrl.query.value;
         res.end(`Session Updated: ${JSON.stringify(session)}`);
     } else {
         res.end(`Session Data: ${JSON.stringify(session)}`);

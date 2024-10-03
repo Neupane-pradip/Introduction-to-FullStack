@@ -1,0 +1,13 @@
+{
+  "name": "ex6",
+  "devDependencies": {
+    "@svgdotjs/svg.js": "^3.0.16",
+    "chai": "^4.5.0",
+    "dom-parser": "^0.1.6",
+    "mocha": "^10.2.0",
+    "svgdom": "^0.1.19"
+  },
+  "scripts": {
+    "test": "mocha --timeout 20000"
+  }
+}
