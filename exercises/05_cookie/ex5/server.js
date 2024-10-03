@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
 
 // TODO: Create a route that responds with "This is the about page." when the user visits "/about"
 app.get('/about', (req, res) => {
-  
+  res.send('This is the about page.');
 });
 
 // TODO: Create a route that responds with JSON data for email and phone when the user visits "/contact"
@@ -19,13 +19,23 @@ app.get('/about', (req, res) => {
 //   phone: '123-456-7890'
 // }
 app.get('/contact', (req, res) => {
-
+  res.json({
+    email: 'contact@myserver.com',
+    phone: '123-456-7890'
+  });
 });
 
 // TODO: Create a route that responds with "Hello, username! You are age years old." when the user visits /user/:username with a query parameter age. 
 // If such query parameter is not provided, the route should respond with "Hello, username! Age not provided."
 app.get('/user/:username', (req, res) => {
+  const { username } = req.params;
+  const age = req.query.age;
 
+  if (age) {
+    res.send(`Hello, ${username}! You are ${age} years old.`);
+  } else {
+    res.send(`Hello, ${username}! Age not provided.`);
+  }
 });
 
 // DO NOT MODIFY BELOW THIS LINE
