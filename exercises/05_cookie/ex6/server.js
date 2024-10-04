@@ -22,48 +22,55 @@ app.get('/', (req, res) => {
   `);
 });
 
-// TODO: Route: Login Page (GET request)
-// - If logged in: redirect to /profile page
-// - If not logged in: display htmlForm below for the login page.
+// Route: Login Page (GET request)
 app.get('/login', (req, res) => {
-  const htmlForm = 
-  `
+  if (req.session.username) {
+    return res.redirect('/profile');
+  }
+  const htmlForm = `
     <h2>Login</h2>
     <form method="POST" action="/login">
       <label>Username:</label>
       <input type="text" name="username" required>
       <button type="submit">Login</button>
     </form>
-  `
-
+  `;
+  res.send(htmlForm);
 });
 
-// TODO: Route: Login (POST request)
-// - Handle the login and store the username in the session
-// - Redirect to the /profile page after login
+// Route: Login (POST request)
 app.post('/login', (req, res) => {
-
+  const { username } = req.body;
+  if (username) {
+    req.session.username = username;
+    return res.redirect('/profile');
+  }
+  res.redirect('/login'); // Redirect back to login if no username is provided
 });
 
-// TODO: Route: Profile Page (GET request)
-// - If logged in: display the profilePage only if the user is logged in
-// - If not logged in: redirect to /login page
+// Route: Profile Page (GET request)
 app.get('/profile', (req, res) => {
-  let profilePage = 
-  `
+  if (!req.session.username) {
+    return res.redirect('/login');
+  }
+  const profilePage = `
     <h2>Profile</h2>
     <p>Welcome, ${req.session.username}!</p>
     <p><a href="/logout">Logout</a></p>
-  `
-
+  `;
+  res.send(profilePage);
 });
 
-// TODO: Route: Logout (GET request)
-// Destroy the session and redirect to home
+
+// Route: Logout (GET request)
 app.get('/logout', (req, res) => {
-
+  req.session.destroy(err => {
+    if (err) {
+      return res.redirect('/profile'); // If there's an error, stay on profile
+    }
+    res.redirect('/');
+  });
 });
-
 // DO NOT MODIFY BELOW THIS LINE
 // Conditionally start the server if this script is run directly
 if (require.main === module) {
