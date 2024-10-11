@@ -13,11 +13,37 @@
  * It draws only one arrow, the f expression must be 'drawArrow'
  * @param {*} i the index, the nth arrow to be drawn, note that the sequence has to return from destination back to the source
  */
-const drawArrows = (actors, timeout, drawArrow, i = 0) => {}
+const drawArrows = (actors, timeout, drawArrow, i = 0) => {
+  // Termination condition
+  if (i >= (actors.length - 1) * 2) {
+    return;
+  }
 
+  let sourceIndex, destIndex;
+  let isForward = i < actors.length - 1; // Determine if it's a forward arrow
 
+  if (isForward) {
+    // Forward arrows
+   
+    sourceIndex = i;
+    destIndex = i + 1;
+  } else {
+    // Return arrows (dashed lines)
+    sourceIndex = actors.length +  (i - (actors.length));
+    
+  }
 
+  // Determine if the arrow should be solid or dashed
+  const isDashed = !isForward;
 
+  // Pass an additional parameter (isDashed) to the drawArrow function
+  drawArrow(sourceIndex, destIndex, actors.length - 1, isDashed);
+
+  // Recursively call drawArrows with a delay
+  setTimeout(() => {
+    drawArrows(actors, timeout, drawArrow, i + 1);
+  }, timeout);
+};
 
 /**
  * DO NOT TOUCH THIS drawArrowsSync: drawArrowSync is the utility function for sync.test.js
