@@ -8,19 +8,37 @@
  * @param {*} i the index of an array
  */
 async function drawArrows(actors, timeout, drawArrow, i = 0) {
-  // TODO: uncomment return statement with the conditional operator at the bottom of this function. MDN Conditional operator:  (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator).
-  // The conditional operator has:
-  // * a condotion where i < actors.length * 2 - 2
-  // * a Promise as the truthy expression, and 
-  // * null as the the falsy expression.
+  // Termination condition using a conditional operator
+  return i < actors.length * 2 - 2 
+    ? new Promise((resolve) => {
+        let sourceIndex, destIndex;
+        let isForward = i < actors.length - 1; // Determine if it's a forward arrow
 
-  // TODO: conditional operator is fine  otherwise, but you must write the *resolve* callback function for the Promise in the conditional operator. Inside this resolve callback:
-  // * call drawArrow() with right parameters
-  // create a setTimeout(), its callback function is the Promise's resolve callback
-  // this callback calls drawArrows() with the right parameters, after the set timeout period.
+        if (isForward) {
+          // Forward arrows
+          sourceIndex = i;
+          destIndex = i + 1;
+        } else {
+          // Return arrows (dashed lines)
+          sourceIndex = actors.length + (i - (actors.length));
+           // Adjust destination index for return arrows
+        }
 
-  //   return i < actors.length * 2 - 2 ? new Promise() : null;
-};
+        // Determine if the arrow should be solid or dashed
+        const isDashed = !isForward;
+
+        // Call drawArrow with the appropriate parameters
+        drawArrow(sourceIndex, destIndex, actors.length - 1, isDashed);
+
+        // Use setTimeout to create a delay
+        setTimeout(() => {
+          resolve(drawArrows(actors, timeout, drawArrow, i + 1)); // Call the function recursively
+        }, timeout);
+      }) 
+    : null; // Return null when done
+}
+
+
 
 
 
