@@ -11,9 +11,29 @@
  * @param {*} i the index of the arrow
  */
 function drawArrows(actors, timeout, drawArrow, i = 0) {
-
-};
-
+    const totalArrows = (actors.length - 1) * 2;
+  
+    (async function drawArrowsIterative() {
+      for (let i = 0; i < totalArrows; i++) {
+        await new Promise(resolve => {
+          let sourceIndex, destIndex;
+          if (i < actors.length - 1) {
+            // Forward arrows
+            sourceIndex = i;
+            destIndex = i + 1;
+          } else {
+            // Return arrows
+            sourceIndex = actors.length +(i - (actors.length ));
+            
+          }
+  
+          drawArrow(sourceIndex, destIndex, actors.length - 1);
+  
+          setTimeout(resolve, timeout);
+        });
+      }
+    })();
+  };
 
 
 
