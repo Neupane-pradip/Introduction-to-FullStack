@@ -1,0 +1,15 @@
+{
+  "name": "nbprne",
+  "version": "1.0.0",
+  "description": "First read this README and please read it completely :-)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

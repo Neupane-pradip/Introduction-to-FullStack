@@ -1,14 +1,18 @@
-// TODO: Install testing packages with npm install
+
 
 /**
- * TODO: implement an *async* function 'f' that returns the value of a parameter inside a Promise
+ *Async function that returns the value of a parameter 
+ inside a Promise
  * @param {number} value, must be a number, isNaN() is useful here
  * @throws an error, if the parameter 'value' is not a number. The thrown error message must
  * be 'Parameter is not a number!'
  * @returns a new Promise, which resolves to the parameter value
  */
-const f = (value) => {
-  throw "Not yet implemented!";
+const f = async(value) => {
+  if (isNaN(value)) {
+    throw new Error('Parameter is not a number')
+  }
+  return Promise.resolve(value);
 }
 
 /**
@@ -17,8 +21,13 @@ const f = (value) => {
  * Handle exceptions gracefully by returning the thrown error message with catch().
  * @param {number} value
  */
-const g = (value) => {
-  throw "Not yet implemented!";
+const g = async(value) => {
+  try {
+    const result = await f( value);
+    return Math.log(result);
+  } catch (error){
+    return error.message;
+  }
 }
 
 /**
@@ -30,8 +39,12 @@ const g = (value) => {
  * @returns resolved Promise with value true if parameter is a function or 
  * a rejected Promise with message "Not a function!" otherwise
  */
-const checkIfFunction = (param) => {
-  throw "Not yet implemented!";
+const checkIfFunction = async(param) => {
+  if (typeof param == 'function'){
+    return Promise.resolve(true);
+  }else{
+    return Promise.reject('Not a function')
+  }
 }
 
 /**
@@ -42,7 +55,14 @@ const checkIfFunction = (param) => {
  * @returns {an empty Promise after a given time}, if time is acceptable
  */
 const p = (time) => {
-  throw "Not yet implemented!";
+  return new Promise(resolve, reject) =>{
+    if (typeof time !== 'number') {
+    reject('Not a number!');
+  } else if (time > 200){
+    reject('Too long time!');
+  } else {
+    setTimeout(resolve, time);
+  }
 };
 
 //TODO: verify that all functions exported below are available for tests (they should be)
