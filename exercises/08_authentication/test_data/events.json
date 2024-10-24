@@ -1,0 +1,72 @@
+[
+    {
+        "_id": "a1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p6",
+        "date": "Mar 02, 2024",
+        "name": "Conference 1",
+        "status": "completed",
+        "description": "Join us for an exciting event where industry leaders will share their insights and experiences. Don't miss this opportunity to network and learn from the best."
+    },
+    {
+        "_id": "b2c3d4e5-f6g7-8h9i-0j1k-l2m3n4o5p6q7",
+        "date": "Nov 29, 2024",
+        "name": "Team Building 2",
+        "status": "completed",
+        "description": "Our event offers a unique blend of presentations, workshops, and networking sessions. It's the ideal setting to learn, connect, and grow your professional network."
+    },
+    {
+        "_id": "c3d4e5f6-g7h8-9i0j-1k2l-m3n4o5p6q7r8",
+        "date": "Jun 11, 2024",
+        "name": "Meeting 3",
+        "status": "planned",
+        "description": "This event promises to be a valuable experience with engaging sessions and interactive discussions. Register now to secure your spot."
+    },
+    {
+        "_id": "d4e5f6g7-h8i9-0j1k-2l3m-n4o5p6q7r8s9",
+        "date": "Oct 01, 2024",
+        "name": "Workshop 4",
+        "status": "cancelled",
+        "description": "Be a part of this exclusive event and gain valuable knowledge from experts in the field. This is a must-attend for anyone looking to stay ahead in the industry."
+    },
+    {
+        "_id": "e5f6g7h8-i9j0-1k2l-3m4n-o5p6q7r8s9t0",
+        "date": "Sep 14, 2024",
+        "name": "Webinar 5",
+        "status": "completed",
+        "description": "Our event will feature keynote speakers, panel discussions, and networking opportunities. It's the perfect platform to connect with like-minded professionals."
+    },
+    {
+        "_id": "f6g7h8i9-j0k1-2l3m-4n5o-p6q7r8s9t0u1",
+        "date": "Jul 19, 2024",
+        "name": "Training Session 6",
+        "status": "cancelled",
+        "description": "Don't miss out on this chance to enhance your skills and knowledge. Our event is designed to provide you with practical insights and actionable takeaways."
+    },
+    {
+        "_id": "g7h8i9j0-k1l2-3m4n-5o6p-q7r8s9t0u1v2",
+        "date": "Aug 22, 2024",
+        "name": "Annual Review 7",
+        "status": "completed",
+        "description": "This event is tailored to meet the needs of professionals looking to expand their horizons. Join us for a day of learning, networking, and growth."
+    },
+    {
+        "_id": "h8i9j0k1-l2m3-4n5o-6p7q-r8s9t0u1v2w3",
+        "date": "Dec 05, 2024",
+        "name": "Product Launch 8",
+        "status": "rejected",
+        "description": "We are excited to host this event that brings together thought leaders and innovators. It's an excellent opportunity to gain new perspectives and ideas."
+    },
+    {
+        "_id": "i9j0k1l2-m3n4-5o6p-7q8r-s9t0u1v2w3x4",
+        "date": "Jul 25, 2024",
+        "name": "Seminar 9",
+        "status": "completed",
+        "description": "This event is designed to provide you with the tools and knowledge you need to succeed. Don't miss this opportunity to learn from the best and connect with peers."
+    },
+    {
+        "_id": "j0k1l2m3-n4o5-6p7q-8r9s-t0u1v2w3x4y5",
+        "date": "Oct 04, 2024",
+        "name": "Conference 10",
+        "status": "planned",
+        "description": "This event is designed to provide you with the tools and knowledge you need to succeed. Don't miss this opportunity to learn from the best and connect with peers."
+    }
+]

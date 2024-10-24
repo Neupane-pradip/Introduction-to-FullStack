@@ -1,0 +1,16 @@
+<header class="bg-gray-900 mb-8">
+    <div class="w-4/5 max-w-6xl mx-auto flex py-4 items-center">
+        <h1 class="text-gray-200 text-2xl italic flex-1">
+            <a href="/">
+                EventApp
+            </a>
+        </h1>
+        <nav>
+            <form action="/logout" method="POST">
+                <button type="submit" class="font-semibold bg-gray-700 rounded px-2 py-1">
+                    Log out <%= user && user.name ? user.name : 'guest'  %>
+                </button>
+            </form>
+        </nav>
+    </div>
+</header>

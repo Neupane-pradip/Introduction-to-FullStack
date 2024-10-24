@@ -1,0 +1,70 @@
+<%- include('../partials/_header') %>
+<%- include('../partials/_nav') %>
+    <main class="w-4/5 max-w-6xl mx-auto">
+        <section class="my-8 w-full py-8 rounded-xl ring-1 ring-white/10 bg-gray-900">
+            <header class="flex flex-col items-center">
+                <h1 class="text-gray-200 text-2xl italic">
+                    EventApp
+                </h1>
+                <h2 class="text-2xl font-bold tracking-tight">
+                    <%= title %>
+                </h2>
+            </header>
+        </section>
+
+        <section class="w-full mb-8 py-4 rounded-xl ring-1 ring-white/10 bg-gray-900">
+            <% if(events.length > 0) { %>
+            <div class="pb-4 px-3 flex justify-between">
+                <p>Showing <%= events.length %> events.</p>
+                <a href="/events/create" 
+                    class="font-semibold bg-yellow-500 rounded px-2">
+                    Create a new event
+                </a>
+            </div>
+            <table class="w-full table-auto divide-y divide-white/5">
+                <thead class="divide-y divide-white/5">
+                    <tr class="bg-white/5">
+                        <th class="px-3 py-3.5 text-start">Date</th>
+                        <th class="px-3 py-3.5 text-start">Name</th>
+                        <th class="px-3 py-3.5 text-start">Status</th>
+                        <th class="px-3 py-3.5 text-start">Tools</th>
+                    </tr>
+                </thead>
+
+                <tbody class="divide-y divide-white/5 whitespace-nowrap">
+                    <% events.forEach(event => {%>
+                    <tr>
+                        <td class="px-3 py-3.5">
+                            <%= event.date %>
+                        </td>
+                        <td class="px-3 py-3.5">
+                            <%= event.name %>
+                        </td>
+                        <td class="px-3 py-3.5">
+                           <span class="text-xs font-medium eventstatus <%= event.status %>"><%= event.status %></span>
+                        </td>
+                        <td class="px-3 py-3.5 flex justify-around">
+                            <a href="/events/<%= event._id %>"
+                                class="bg-yellow-500 rounded px-2">
+                                <i class="fa fa-pencil" aria-hidden="true" title="Edit"></i>
+                            </a>
+
+                            <form action="/events/<%= event._id %>/delete" method="post" class="inline">
+                                <button type="submit" title="Delete" class="bg-red-500 rounded px-2">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </form>
+
+                        </td>
+                    </tr>
+                    <% }) %>
+
+                </tbody>
+            </table>
+            <% } else { %>
+                <p>No events found.</p>
+            <% } %>
+        </section>
+    </main>
+
+<%- include('../partials/_footer') %>

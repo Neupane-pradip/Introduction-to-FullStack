@@ -1,0 +1,21 @@
+{
+  "name": "eslint",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Badly formatted project, please fix me",
+  "dependencies": {
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "globals": "^15.10.0",
+    "mocha": "^10.7.3",
+    "mocha-eslint": "^7.0.0"
+  }
+}
