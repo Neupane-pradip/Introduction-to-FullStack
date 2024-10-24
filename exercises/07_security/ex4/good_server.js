@@ -11,25 +11,19 @@ const port = 3000;
 const users = [{
   username: 'good_user',
   password: 'good_pass',
-  //  cookie_secret value is set to 
-  // the cookie named 'secret_for_good_server', which is  
-  // used to authenticate good_user when they have logged in. 
   cookie_secret: 1234567890
 }]
 
 /**
  * currentUser object
- *  This is where the currently logged in user is saved.
+ * This is where the currently logged in user is saved.
  * Only works for one-user systems.
  */
-// 
 let currentUser = {};
 
 /**
  * csrfTokens array
  * This is where created CSRF tokens are stored
- * setCSRFtoken() function adds the tokens it creates to this array
- * checkCSRFtoken(token) function removes the tokens that are checked and valid from this array
  */
 let csrfTokens = [];
 
@@ -39,7 +33,7 @@ const server = http.createServer(function(request, response) {
     fs.readFile(__dirname + '/good_server.html', function(error, htmlPage) {
       if (error) {
         response.writeHead(404);
-        response.end(JSON.stringify(err));
+        response.end(JSON.stringify(error));
         return;
       } else {
         response.writeHead(200, { 'Content-Type': 'text/html' });
@@ -65,7 +59,6 @@ const server = http.createServer(function(request, response) {
           `
             <!doctype html>
             <html lang="en">
-            
             <head>
               <meta charset="utf-8">
               <title>The Good Server</title>
@@ -85,31 +78,21 @@ const server = http.createServer(function(request, response) {
         return;
       }
     })
-  } else if (request.url.match(/^\/money_transfer.*/)) {
+  }
+  else if (request.url.match(/^\/money_transfer.*/)) {
     const cookies = querystring.parse(request.headers['cookie'], '; ');
     const query = url.parse(request.url, true).query;
-    // Check that the user has a cookie, which is set after
-    // successful login for user good_user
+    
+    // Check that the user has a valid cookie
     if (cookies.secret_for_good_server != users[0].cookie_secret) {
       response.statusCode = 403;
       response.statusMessage = "Missing or wrong secret cookie";
       response.end('Missing or wrong secret cookie');
       return;
     }
-    // Check that the input includes the three fields: 
-    // 1. from
-    // 2. to (indicating users), and
-    // 3. sum
-    // If not, send the user to the money transfer form again
+    // Show the money transfer form if no transfer parameters are present
     else if (!query.to || !query.sum) {
       response.writeHead(200, { 'Content-Type': 'text/html' });
-
-      // TODO
-      // Add an input field to the HTML form below to hold the CSRF token
-      // As the hidden field is inside a template literal below, we could add expression with (from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals):       `string text ${expression} string text`
-      // - set the input field's type attribute to "hidden"  
-      // - set the input field's name attribute to "csrf_token" 
-      //  - set the input field's value attribute to the return value of the setCSRFtoken() function. Remember to place the value attribute's value between apostrophe (") characters, for example value="{yourFunctionCallHere()}".
       response.end(
         ` 
           <!doctype html>
@@ -128,6 +111,7 @@ const server = http.createServer(function(request, response) {
                 <input type="text" placeholder="User you want to send money to" name="to" required>
                 <label for="sum"><b>Sum to transfer (in full Euros)</b></label>
                 <input type="number" placeholder="Enter a sum" name="sum" required>
+                <input type="hidden" name="csrf_token" value="${setCSRFtoken()}">
                 <button type="submit">Transfer money</button>
               </div>
             </form>
@@ -137,16 +121,14 @@ const server = http.createServer(function(request, response) {
       );
       return;
     }
-    // TODO
-    // NOTE: before this TODO, implement the checkCSRFtoken() function at the end of this file
-    // Here we check that the CSRF token returned by the checkCSRFtoken() is present in request, and  is a valid one
-    // Just uncomment the else if block below, after you have coded your checkCSRFtoken() function at the end of this file
-    // else if (checkCSRFtoken(query.csrf_token) === -1) {
-    //   response.statusCode = 403;
-    //   response.statusMessage = "Missing or wrong CSRF token";
-    //   response.end('Missing or wrong CSRF token');
-    //   return;
-    // }
+    // Check CSRF token
+    else if (checkCSRFtoken(query.csrf_token) === -1) {
+      response.statusCode = 403;
+      response.statusMessage = "Missing or wrong CSRF token";
+      response.end('Missing or wrong CSRF token');
+      return;
+    }
+    // Process the money transfer
     else {
       response.writeHead(200, { 'Content-Type': 'text/html' });
       response.end(
@@ -163,33 +145,25 @@ const server = http.createServer(function(request, response) {
           </body>
           </html>
         `
-
       );
       return;
     }
-  } else {
+  }
+  // Handle unknown routes
+  else {
     response.writeHead(404);
     response.write('Page not found or wrong HTTP method used');
     response.end();
     return;
   }
-})
-
-module.exports = server;
-
-// If the file is being run directly (i.e., not imported as a module), start the server
-if (require.main === module) {
-  server.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-  });
-}
+});
 
 /**
  * function checkUser
  * Used to check the login credentials user gave match those in users array
  * @param {*} userName username from request
  * @param {*} password password from the request
- * @returns {Array} A new array with the elements that pass the test. If no elements pass the test, an empty array will be returned. 
+ * @returns {Array} A new array with the elements that pass the test
  */
 const checkUser = (userName, password) => {
   const userHopefully = users.filter((user) => {
@@ -198,27 +172,41 @@ const checkUser = (userName, password) => {
   return userHopefully;
 }
 
-// TODO: implement the function as specified below
 /**
  * function setCSRFtoken
- * Used to create and return a random string to be used as the value of the CSRF token 
- * After you have created the random string, push it to the csrfTokens array 
- * There are plenty of discussions in the Web about how plain JS can be used to generate random(ish) strings. For our needs Math.random() is a reasonable starting point, and string length of 10 characters is enough. You can use toString() and slice() methods to modify the output of Math.random() to a 10 character string. 
- * No function parameters
- * @returns {string} Return a random string used as the value of CSRF token
+ * Creates and returns a random string to be used as the CSRF token
+ * @returns {string} Random string used as CSRF token
  */
 const setCSRFtoken = () => {
-
+  // Generate a random string of 10 characters
+  const token = Math.random().toString(36).slice(2, 12);
+  // Store the token in our array
+  csrfTokens.push(token);
+  return token;
 }
 
-// TODO: implement the function as specified below
 /**
  * function checkCSRFtoken
- * Used to check that the CSRF token that was received with the money transfer form exists in the csrfTokens array. JavaScript Array's findIndex() method is useful here. 
- * If the CSRF token is found from the csrfTokens array, it must be removed from it. 
+ * Checks if the CSRF token exists and removes it if found
  * @param {string} token CSRF token from the request
- * @returns {number} The index of the first element in the array that passes the test. Otherwise, -1.
+ * @returns {number} Index of found token or -1 if not found
  */
 const checkCSRFtoken = (token) => {
+  // Find the index of the token in our array
+  const tokenIndex = csrfTokens.findIndex(storedToken => storedToken === token);
+  // If token is found, remove it from the array
+  if (tokenIndex !== -1) {
+    csrfTokens.splice(tokenIndex, 1);
+  }
+  // Return the index (or -1 if not found)
+  return tokenIndex;
+}
 
+module.exports = server;
+
+// Start the server if this file is run directly
+if (require.main === module) {
+  server.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+  });
 }
