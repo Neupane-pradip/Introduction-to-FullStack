@@ -10,7 +10,6 @@ const server = http.createServer((request, response) => {
     response.end();
   });
 
-
   if (request.url === '/' || request.url === undefined) {
     fs.readFile(path.resolve('index.html'), function(error, file) {
       if (error) {
@@ -18,10 +17,8 @@ const server = http.createServer((request, response) => {
         response.end(JSON.stringify(error));
         return;
       } else {
-        // TODO: modify Content Security 
-        // Policy header value as required
         response.writeHead(200, {
-          'Content-Security-Policy': 'default-src \'none\''
+          'Content-Security-Policy': "img-src *.staticflickr.com *.creativecommons.org; script-src 'self'"
         });
         response.write(file);
       }
