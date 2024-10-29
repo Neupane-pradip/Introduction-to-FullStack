@@ -19,11 +19,11 @@
         console.log('Server is running on port 3000');
     });
 
-    // Log function
-    function log(error = "") {
+    // Convert function declaration to arrow function
+    const log = (error = "") => {
         console.log(`Oops! Something went wrong: ${error}`);
         return 0;
-    }
+    };
 
     // Optionally expose the log function if needed
     module.exports = { app, log };
