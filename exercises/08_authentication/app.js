@@ -34,24 +34,17 @@
 
     // Middleware for authenticated users only
     const usersOnly = (req, res, next) => {
-        // Happy path, the request may pass through
         if (req.session && req.session.user) {
             return next();
         }
-
-        // Unhappy path, the request is intercepted and rejected
         return res.redirect('/login');
     };
 
     // Middleware for admin users only
     const adminOnly = (req, res, next) => {
-        // Since this middleware will be used after usersOnly,
-        // we can assume req.session.user exists
         if (req.session.user.role === 'admin') {
             return next();
         }
-
-        // If not admin, redirect back to events page
         return res.redirect('/events');
     };
 
