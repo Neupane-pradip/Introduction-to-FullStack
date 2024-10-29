@@ -161,45 +161,61 @@ app.get('/register', (req, res) => {
 
 app.post('/register', async (req, res) => {
     let errors = [];
-    //TODO: Pluck name, email, password from request, 
-    //find a way to hold the information for validation, 
-    //possibly for passing back to the form as old form input data,
-    //and for persisting in the users array
     
-    //TODO: Validate those info (at least that they exists and are not empty (""))
-    //TODO: Add validation errors, if those info are missing
-    //Error strings are provided to make testing easier
-    const ERROR_NAME_MISSING = 'Name is required!';
-    const ERROR_EMAIL_MISSING = 'Email is required!';
-    const ERROR_PASSWORD_MISSING = 'Password is required!';
-    const ERROR_EMAIL_IN_USE = 'Email is already in use!';
+    // Get name, email, password from request
+    const { name, email, password } = req.body;
     
-    //TODO: Check that that email is not yet in use
-    //if one is in use, return back to form and show the error ERROR_EMAIL_IN_USE
+    // Validate required fields
+    if (!name || name.trim() === '') {
+        errors.push('Name is required!');
+    }
+    if (!email || email.trim() === '') {
+        errors.push('Email is required!');
+    }
+    if (!password || password.trim() === '') {
+        errors.push('Password is required!');
+    }
     
-    if(errors.length > 0) {
-        //TODO: Store validation errors in the session
+    // Check if email is already in use
+    const existingUser = users.find(u => u.email === email);
+    if (existingUser) {
+        errors.push('Email is already in use!');
+    }
+    
+    if (errors.length > 0) {
+        // Store validation errors in session
+        req.session.errors = errors;
         
-        //TODO: Send back potential old data to use in create -form
+        // Store old input data (except password) for form repopulation
+        req.session.oldInput = {
+            name,
+            email
+        };
         
-        //TODO: PRG, Post-Redirect-Get, return a redirect back to GET /register
-        
+        // PRG pattern - redirect back to registration form
+        return res.redirect('/register');
     }
 
-    //TODO: Generate a unique id for the new user, you can use uuid()
+    // Generate unique id for new user
+    const id = uuid();
     
-    //TODO: Make sure the new user starts with a role of "user"
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
     
-    //TODO: Make sure the new user's password is set as the bcrypt hash of the provided password
+    // Create new user object with role "user"
+    const newUser = {
+        id,
+        name,
+        email,
+        password: hashedPassword,
+        role: 'user'
+    };
     
-    //TODO: "Save" the new user by pushing it into the users array
-    
+    // Save user to users array
+    users.push(newUser);
 
-    //TODO: Store the new user in session, so that they are logged in
-    
-
-    //TODO: remove this return once other steps are completed
-    return res.send("Not implemented yet!");
+    // Store user in session (log them in)
+    req.session.user = newUser;
 
     return res.redirect('/');
 });
