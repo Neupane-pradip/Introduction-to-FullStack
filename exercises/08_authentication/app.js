@@ -40,6 +40,18 @@ function usersOnly(req, res, next) {
     return res.redirect('/login');
 }
 
+// New adminOnly middleware
+function adminOnly(req, res, next) {
+    // Since this middleware will be used after usersOnly,
+    // we can assume req.session.user exists
+    if (req.session.user.role === 'admin') {
+        return next();
+    }
+
+    // If not admin, redirect back to events page
+    return res.redirect('/events');
+}
+
 app.get('/', usersOnly, (req, res) => {
     return res.redirect('/events');
 });
@@ -133,8 +145,8 @@ app.post('/events/:id', usersOnly, (req, res) => {
     return res.redirect('/events');
 });
 
-//TODO: This should only be available to signed in users with the role of admin
-app.post('/events/:id/delete', usersOnly, (req, res) => {
+// Updated delete route with both middlewares
+app.post('/events/:id/delete', usersOnly, adminOnly, (req, res) => {
     const index = events.findIndex(e => e._id === req.params.id);
 
     if (index !== -1) {
@@ -161,7 +173,6 @@ app.get('/register', (req, res) => {
 
 app.post('/register', async (req, res) => {
     let errors = [];
-    
     // Get name, email, password from request
     const { name, email, password } = req.body;
     
