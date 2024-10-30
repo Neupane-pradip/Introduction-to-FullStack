@@ -4,24 +4,21 @@ const addTask = () => {
 
     if(taskText === '') return;
 
-    //TODO: 
-    //1. get the tasks
-    //2. push the new task to tasks, set done to false
-    //3. save the tasks
+    const tasks = getTasks();
+    tasks.push({ text: taskText, done: false });
+    saveTasks(tasks);
 
     taskInput.value = '';
     renderTasks();
 };
 
 const getTasks = () => {
-    //TODO:
-    //1. read the tasks from localStorage
-    //2. return the read tasks using JSON parse or an empty array if none were found
+    const tasksJson = localStorage.getItem('tasks');
+    return tasksJson ? JSON.parse(tasksJson) : [];
 };
 
 const saveTasks = tasks => {
-    //TODO:
-    //1. save the tasks in localstorage using JSON stringify
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 };
 
 const renderTasks = () => {
@@ -44,9 +41,8 @@ const renderTasks = () => {
 };
 
 const clearList = () => {
-    //TODO:
-    //1. empty local storage
-    //2. update UI
+    localStorage.clear();
+    renderTasks();
 };
 
 const toggleTaskDone = index => {
