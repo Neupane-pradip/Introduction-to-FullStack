@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalStorage Todo App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body style="background: rgb(216,172,255);background: linear-gradient(135deg, rgba(216,172,255,1) 0%, rgba(175,103,239,1) 100%);">
+    <main class="min-h-screen flex flex-col items-center">
+        <div class="flex-1 lg:w-2/3 xl:w-2/5 w-full px-7">
+            <div>
+                <h1 
+                    class="text-3xl lg:text-4xl text-white font-bold tracking-widest pt-10 sm:pt-16 lg:pt-24 pb-6 lg:pg-10 drop-shadow-lg">
+                    TODO
+                </h1>
+                <div class="relative group flex">
+                    <input type="text" 
+                        id="taskInput"
+                        class="bg-white text-sm sm:text-base overflow-ellipsis w-full focus:outline-none py-4 sm:py-4.5 pr-8 pl-8 rounded-l text-light  drop-shadow-lg"
+                        placeholder="Add a new todo item..."
+                        maxlength="125"
+                        aria-label="Todo" />
+                    <button
+                        id="addButton"
+                        class="bg-green-400 text-sm sm:text-base focus:outline-none py-4 sm:py-4.5 pr-8 pl-8 rounded-r font-semibold drop-shadow-lg">
+                        Add</button>
+                </div>
+                <div class="bg-white rounded mb-2">
+                    <ul 
+                        id="taskList"
+                        class="mt-5 sm:mt-7">
+                    </ul>
+                </div>
+                <button 
+                    id="clearButton"
+                    class="text-blue-900">Clear all</button>
+            </div>
+        </div>
+    </main>
+
+    <template id="itemTemplate">
+        <li class="text-sm sm:text-base overflow-ellipsis w-full focus:outline-none py-4 sm:py-4.5 pr-8 pl-8 rounded text-light cursor-pointer border-b border-dotted border-gray-300 last:border-none"></li>
+    </template>
+    <script src="app.js"></script>
+</body>
+</html>
