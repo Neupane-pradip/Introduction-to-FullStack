@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('./../mongoose');
 const bcrypt = require('bcrypt');
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
