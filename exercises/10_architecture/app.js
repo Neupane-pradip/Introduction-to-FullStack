@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 
+const apiRoutes = require('./routes/api');
 const connectDB = require('./config/database');
 const sessionConfig = require('./config/session');
 const Event = require('./models/Event');
@@ -27,6 +28,9 @@ app.use(bodyParser.json());
 
 // Set up sessions
 app.use(sessionConfig);
+
+// Use API routes
+app.use('/', apiRoutes);
 
 // Middleware functions
 function usersOnly(req, res, next) {
