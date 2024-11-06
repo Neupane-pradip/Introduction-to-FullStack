@@ -1,0 +1,88 @@
+<%- include('../partials/_header') %>
+<%- include('../partials/_nav') %>
+    <main class="w-4/5 max-w-6xl mx-auto">
+        <section class="w-full py-4 mb-8 rounded-xl ring-1 ring-white/10 bg-gray-900">
+            <div class="pb-4 px-3 flex justify-between">
+                <h2 class="text-2xl font-bold tracking-tight">
+                    <%= title %>
+                </h2>
+                <form action="/events/<%= event._id %>/delete" method="post" class="inline">
+                    <button type="submit" class="font-semibold bg-red-500 rounded px-2 py-1">
+                        Delete
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <section class="w-full p-4 rounded-xl ring-1 ring-white/10 bg-gray-900">
+            <%- include('../partials/_errors') %>
+            <form action="/events/<%= event._id %>" method="post">
+
+                <div class="grid gap-y-2 mb-4">
+                    <label for="name" class="text-sn font-medium leading-6">
+                        Name<sup class="text-red-400 font-medium">*</sup>
+                    </label>
+
+                    <input 
+                        type="text" 
+                        name="name" 
+                        id="name" 
+                        class="p-2 placeholder:text-gray-500 bg-gray-800 rounded" 
+                        value="<%= event.name %>"
+                        >
+                </div>
+
+                <div class="grid gap-y-2 mb-4">
+                    <label for="date" class="text-sn font-medium leading-6">
+                        Date<sup class="text-red-400 font-medium">*</sup>
+                    </label>
+
+                    <input 
+                        type="text" 
+                        name="date" 
+                        id="date" 
+                        class="p-2 placeholder:text-gray-500 bg-gray-800 rounded" 
+                        value="<%= event.date %>"
+                        >
+                </div>
+
+                <div class="grid gap-y-2 mb-4">
+                    <label for="status" class="text-sn font-medium leading-6">
+                        Status
+                    </label>
+
+                    <select name="status" id="status" class="p-2 placeholder:text-gray-500 bg-gray-800 rounded">
+                        <option value="planned" <%= event.status === "planned" ? "selected" : "" %>>Planned</option>
+                        <option value="completed" <%= event.status === "completed" ? "selected" : "" %>>Completed</option>
+                        <option value="cancelled" <%= event.status === "cancelled" ? "selected" : "" %>>Cancelled</option>
+                        <option value="rejected" <%= event.status === "rejected" ? "selected" : "" %>>Rejected</option>
+                    </select>
+                </div>
+
+                <div class="grid gap-y-2 mb-4">
+                    <label for="description" class="text-sn font-medium leading-6">
+                        Description
+                    </label>
+
+                    <textarea 
+                        name="description" 
+                        id="description" 
+                        class="p-2 placeholder:text-gray-500 bg-gray-800 rounded"><%= event.description %></textarea>
+                </div>
+
+                <div class="flex justify-end">
+                    <a 
+                        href="/events"
+                        class="font-semibold bg-gray-700 rounded px-2 py-1 mr-4"
+                        >Cancel
+                    </a>
+
+                    <button type="submit" class="font-semibold bg-green-500 rounded px-2 py-1">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+<%- include('../partials/_footer') %>

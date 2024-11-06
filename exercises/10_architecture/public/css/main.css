@@ -1,0 +1,31 @@
+/* Custom styles here */
+span.eventstatus {
+    border: 1px solid rgb(228, 228, 231);
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 2px 4px;
+}
+
+span.eventstatus.rejected {
+    border-color: rgb(251, 36, 36);
+    background-color: rgba(251, 36, 36, 0.1);
+    color: rgb(251, 36, 36);
+}
+
+span.eventstatus.planned {
+    border-color: rgb(96, 165, 250);
+    background-color: rgba(96, 165, 250, 0.1);
+    color: rgb(96, 165, 250);
+}
+
+span.eventstatus.completed {
+    border-color: rgb(34, 197, 94);
+    background-color: rgba(34, 197, 94, 0.1);
+    color: rgb(34, 197, 94);
+}
+
+span.eventstatus.cancelled {
+    border-color: rgb(251, 191, 36);
+    background-color: rgba(251, 191, 36, 0.1);
+    color: rgb(251, 191, 36);
+}
