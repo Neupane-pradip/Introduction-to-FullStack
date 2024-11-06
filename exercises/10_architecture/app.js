@@ -11,6 +11,19 @@ const Event = require('./models/Event');
 const User = require('./models/User');
 
 const app = express();
+app.use(session({
+    secret: 'keyboard_cat',  // Update this with actual secret
+    resave: false,
+    saveUninitialized: true
+  }));
+  
+  // Routes (using sessionAuthMiddleware for protecting routes)
+  const eventRoutes = require('./routes/events');
+  const userRoutes = require('./routes/users');
+  
+  app.use('/events', sessionAuthMiddleware, eventRoutes); // Protect event routes
+  app.use('/users', userRoutes); // User routes (logout will be protected)
+  
 
 // Connect to MongoDB
 connectDB();
