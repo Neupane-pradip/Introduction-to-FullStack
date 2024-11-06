@@ -1,61 +1,46 @@
 const express = require('express');
 const path = require('path');
-const session = require('express-session');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-const mongoose = require('mongoose');
 require('dotenv').config();
 
+const connectDB = require('./config/database');
+const sessionConfig = require('./config/session');
 const Event = require('./models/Event');
 const User = require('./models/User');
 
-
-mongoose.connect(process.env.MONGO_URI)
-.then(() => {
-    console.log("Connected to MongoDB");
-}).catch((error) => {
-    console.log(`Error connecting to MongoDB`, error);
-});
-
 const app = express();
 
-//Use EJS templating library
+// Connect to MongoDB
+connectDB();
+
+// Use EJS templating library
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 
-//Serve static files automatically (in this case, CSS)
+// Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Set up body-parser. This will accept POST data and append them to the req object
+// Set up body-parser
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json()); //this will also accept JSON from the tests
+app.use(bodyParser.json());
 
-//Set up sessions
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true
-}));
+// Set up sessions
+app.use(sessionConfig);
 
-//Middleware functions can be executed before the route callback is handled
-//here, we can, for example, stop the request from being processed further
-//if all checks out, we simply call next() to proceed to the next
-//middleware function (or the request callback once through all middleware "layers")
+// Middleware functions
 function usersOnly(req, res, next) {
-    //Happy path, the request may pass through
     if(req.session && req.session.user) return next();
-
-    //Unhappy path, the request is intercepted and rejected
     return res.redirect('/login');
 }
 
+// Define routes
 app.get('/', usersOnly, (req, res) => {
     return res.redirect('/events');
 });
 
 app.get('/events', usersOnly, async (req, res) => {
     const user = req.session.user;
-
     const events = await Event.find();
     return res.render('events/index', { title: 'Dashboard', user, events });
 });
