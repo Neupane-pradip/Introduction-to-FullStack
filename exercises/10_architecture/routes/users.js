@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const sessionAuthMiddleware = require('../middleware/sessionAuthMiddleware');
 const userController = require('../controllers/userController');
 
-// Logout route protected by sessionAuthMiddleware
-router.post('/logout', sessionAuthMiddleware, userController.logout);
+router.get('/login', userController.renderLoginForm);
+router.post('/login', userController.login);
+router.post('/logout', userController.logout);
+router.get('/register', userController.renderRegisterForm);
+router.post('/register', userController.register);
 
 module.exports = router;

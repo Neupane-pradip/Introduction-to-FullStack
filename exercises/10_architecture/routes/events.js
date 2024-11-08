@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const sessionAuthMiddleware = require('../middleware/sessionAuthMiddleware');
 const eventController = require('../controllers/eventController');
 
-// Protect the routes with the sessionAuthMiddleware
-router.get('/', sessionAuthMiddleware, eventController.list);
-router.post('/', sessionAuthMiddleware, eventController.create);
-router.put('/:id', sessionAuthMiddleware, eventController.update);
-router.delete('/:id', sessionAuthMiddleware, eventController.delete);
+
+router.get('/events', eventController.all);
+router.get('/events/create', eventController.create);
+router.post('/events', eventController.store);
+router.get('/events/:id', eventController.edit);
+router.post('/events/:id', eventController.update);
+router.post('/events/:id/delete', eventController.delete);
 
 module.exports = router;
+
+
