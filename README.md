@@ -1,3 +1,64 @@
+# Introduction to Full Stack Development
+
+My Tampere University web development coursework, progressing from HTML and browser JavaScript to HTTP servers, authentication, persistence, and application architecture.
+
+The repository combines supplied course material, tests, and exercise work. It is a historical coursework snapshot with partial exercises rather than one finished application.
+
+## Learning path
+
+| Folder under `exercises/` | Focus |
+|---|---|
+| `01_html/`, `02_css/` | Markup and styling |
+| `03_javascript/` | DOM manipulation and events |
+| `04_http/` | Node.js HTTP servers and responses |
+| `05_cookie/` | Cookies and sessions |
+| `06_async/` | Callbacks, promises, and async functions |
+| `07_security/` | Web security demonstrations |
+| `08_authentication/` | Authentication and event-app exercises |
+| `09_data_persistence/` | MongoDB and Mongoose |
+| `10_architecture/` | Controllers, routes, middleware, and models |
+
+## Requirements
+
+- A web browser for the HTML/CSS exercises.
+- Node.js and npm for server-side exercises.
+- MongoDB for exercises that connect to a database.
+
+Dependencies and commands belong to individual exercise directories. The root `npm test` script is a placeholder and is not a course-wide test runner.
+
+## View a static exercise
+
+Open an exercise's `index.html` in a browser, or serve the repository locally with Python 3:
+
+```sh
+python -m http.server 8000
+```
+
+Browse to `http://localhost:8000/exercises/01_html/ex3/`.
+
+## Run a small HTTP exercise
+
+The header-response example uses Node's built-in HTTP module:
+
+```sh
+node exercises/04_http/ex3/index.js
+```
+
+Visit `http://localhost:3000`. Stop the process with Ctrl+C before starting another server on the same port.
+
+For exercises with a `package.json`, change into that folder, run `npm install`, and inspect its scripts before using `npm start` or `npm test`.
+
+## Current limitations
+
+- Some files retain placeholders or incomplete solutions.
+- `exercises/04_http/ex2/index.js` contains unresolved merge-conflict markers and needs repair before it can run.
+- Later database exercises require local configuration; inspect their environment-variable usage instead of assuming one configuration fits every round.
+- Security exercises are demonstrations for local study.
+- Supplied tests and starter code remain attributable to the course authors.
+
+<details>
+<summary>Original course environment and submission instructions</summary>
+
 # Welcome to Introduction to Full Stack Development course!
 
 First read this README and please read it completely :-)
@@ -98,3 +159,4 @@ In *Windows*, you can follow [Microsoft's own instructions for Node installation
 
 ## Support for exercises and other course work
 Support from peers and course personnel is available in the course's Teams team, which has separate channels for each exercise round.
+</details>
